@@ -67,7 +67,7 @@ class MyHTMLParser(HTMLParser):
 
 
 parser = MyHTMLParser()
-s = open("long.html", "r").read()
+s = open("testfiles/long.html", "r").read()
 
 parser.feed(s)
 
