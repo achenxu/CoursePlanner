@@ -5,10 +5,9 @@ from HTMLParser import HTMLParser
 
 class MyHTMLParser(HTMLParser):
     starts = []
-    subjects = []
-    courses = []
-    
-    currentCourse = []
+    data = []
+    toIgnore = ['CRN', 'Course #', 'Course Title', 'Units', 'Actv', 'Days', 'Time', 'Bldg/Rm', 'Start - End', 'Instructor', 'Max Enrl', 'Act Enrl', 'Seats Avail', 'Skip to top of page', 'Search Courses']
+    passes = 0
     
     def handle_starttag(self, tag, attrs):
         self.starts.append(tag)
@@ -19,58 +18,44 @@ class MyHTMLParser(HTMLParser):
     def handle_data(self, data):
         if len(self.starts) < 1:
             return
+        if data in self.toIgnore:
+            return
 
         if self.starts[len(self.starts) - 1] == 'h3':
-            self.subjects.append(data)
+            if data == "&":
+                self.data[len(self.data)-1][0] = self.data[len(self.data)-1][0] + data
+                self.passes = 1
+            else:
+                if self.passes == 0:
+                    self.data.append([data, "subject"])
+                else:
+                    self.data[len(self.data)-1][0] = self.data[len(self.data)-1][0] + data
+                    self.passes -= 1
+        
+        if self.starts[len(self.starts) - 1] == 'a':
+            self.data.append([data, "crn"])
 
         if self.starts[len(self.starts) - 1] == 'small':
-            if data == "Must Also Register for a Corresponding Lab Section":
-                return
-            if data == "CRN":
-                if len(self.currentCourse) > 3:
-                    print(self.currentCourse[0] + "\t" + self.currentCourse[1]  + "\t" +  self.currentCourse[2]  + "\t" +  self.currentCourse[3])
-                self.courses.append(self.currentCourse)
-                self.currentCourse = []
-            if data.count("-") == 2 and data.count(" ") == 0:
-                print(self.currentCourse[0] + "\t" + self.currentCourse[1]  + "\t" +  self.currentCourse[2]  + "\t" +  self.currentCourse[3])
-                self.courses.append(self.currentCourse)
-                self.currentCourse = [data]
+            if data == "&":
+                self.data[len(self.data)-1][0] = self.data[len(self.data)-1][0] + data
+                self.passes = 1
             else:
-                self.currentCourse.append(data)
-
-
-    def sortSubjects(self):
-        newSubjects = []
-        j = 0
-        for i in range(len(self.subjects)-1):
-            if (self.subjects[i+1] == '&'):
-                newSubjects.append(self.subjects[i] + self.subjects[i+1] + self.subjects[i+2])
-                j = 2
-            else:
-                if j == 0:
-                    newSubjects.append(self.subjects[i])
+                if self.passes == 0:
+                    self.data.append([data, "info"])
                 else:
-                    j -= 1
-        self.subjects = newSubjects
-
-
-    def printSubjects(self):
-        for subject in self.subjects:
-            print("Subject", subject)
-
-
-
-
-
-
-
+                    self.data[len(self.data)-1][0] = self.data[len(self.data)-1][0] + data
+                    self.passes -= 1
 
 
 parser = MyHTMLParser()
-s = open("testfiles/long.html", "r").read()
+s = open("testfiles/long.html", "r").read()    # Extract from html file
 
-parser.feed(s)
+parser.feed(s)                                  # Parse it into data elements (subject, crn, or info)
 
-parser.sortSubjects()
+for info in parser.data:
+    print(info)
 
-parser.printSubjects()
+datatoputinobjects = parser.data    # Needs another function to parse informations into the objects
+
+
+
