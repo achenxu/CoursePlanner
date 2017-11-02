@@ -50,12 +50,12 @@ class MyHTMLParser(HTMLParser):
 
 
 parser = MyHTMLParser()
-s = open("testfiles/long.html", "r").read()    # Extract from html file
+s = open("testfiles/short.html", "r").read()    # Extract from html file
 
 parser.feed(s)                                  # Parse it into data elements (subject, crn, or info)
 
 for info in parser.data:
-    print(info)
+    print(info[0])
 
 
 datatoputinobjects = parser.data    # Needs another function to parse informations into the objects
