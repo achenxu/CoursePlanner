@@ -35,7 +35,3 @@ Check the .csv file afterwards.
 Feel free to submit a pull request, however, make sure to pull the information often when we update the code base.
 Please be descriptive in your pull requests as well.  Feel free to reach out to us if you have any questions on anything.
 
-## License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
-
