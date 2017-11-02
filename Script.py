@@ -50,13 +50,38 @@ class MyHTMLParser(HTMLParser):
 
 
 parser = MyHTMLParser()
-s = open("testfiles/short.html", "r").read()    # Extract from html file
+s = open("testfiles/long.html", "r").read()    # Extract from html file
 
 parser.feed(s)                                  # Parse it into data elements (subject, crn, or info)
 
 for info in parser.data:
     print(info[0])
 
+r = open("testfiles/result.csv", "w")
+
+r.write("CRN/Class, Course ID, Course Name, Units, Type, Days, Hours, Room, Dates, Instructor, Capacity, Enrolled, Available, Type2, Days2, Hours2, Room2, Dates2, Type3, Days3, Hours3, Room3, Dates3\n")
+
+column = 0
+for info in parser.data:
+    
+    if info[1] == 'subject':
+        r.write("\n" + info[0])
+    
+    if info[1] == 'crn':
+        r.write("\n" + info[0])
+        column = 0
+
+    if info[1] == 'info':
+        if column == 2:
+            if len(info[0]) > 1:
+                continue
+        r.write(", " + info[0].replace(",", ""))
+        column += 1
+        if info[0] == "TBD-TBD":
+            r.write(", ")
+            column += 1
+
+r.close()
 
 datatoputinobjects = parser.data    # Needs another function to parse informations into the objects
 
