@@ -4,5 +4,4 @@ class Course:
     name = ""
     units = ""
     type = ""
-    raw = ""
     sections = []

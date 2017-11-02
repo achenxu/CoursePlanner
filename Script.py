@@ -27,12 +27,14 @@ class MyHTMLParser(HTMLParser):
                 self.passes = 1
             else:
                 if self.passes == 0:
+                    self.data.append(["startsubject", "separator"])
                     self.data.append([data, "subject"])
                 else:
                     self.data[len(self.data)-1][0] = self.data[len(self.data)-1][0] + data
                     self.passes -= 1
         
         if self.starts[len(self.starts) - 1] == 'a':
+            self.data.append(["startcourse", "separator"])
             self.data.append([data, "crn"])
 
         if self.starts[len(self.starts) - 1] == 'small':
@@ -54,6 +56,7 @@ parser.feed(s)                                  # Parse it into data elements (s
 
 for info in parser.data:
     print(info)
+
 
 datatoputinobjects = parser.data    # Needs another function to parse informations into the objects
 
