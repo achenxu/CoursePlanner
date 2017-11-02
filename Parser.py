@@ -1,8 +1,5 @@
 from HTMLParser import HTMLParser
 
-#from Course import Course
-#from Subject import Subject
-
 class MyHTMLParser(HTMLParser):
     starts = []
     data = []
