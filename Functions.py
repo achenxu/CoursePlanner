@@ -5,12 +5,12 @@ def convert24h(s):
     if hf[1].count("pm") > 0:
         hf[0] = str(int(hf[0]) + 12)
         hf[1] = hf[1][0:2]
-        if hs[0] > 9 and hs[0] != "12":
-            hf[1] = str(int(hf[1]) + 12)
+        if int(hs[0]) < 10 and hs[0] != "12":
+            hs[0] = str(int(hs[0]) + 12)
     else:
         hf[1] = hf[1][0:2]
     
-    return hs[0] + ":" + hs[1] + "-" + hf[0] + ":" + hf[1]
+    return hs[0] + hs[1] + "-" + hf[0] + hf[1]
 
 def filterCourses(coursesToExtract, data):
     courses = []
