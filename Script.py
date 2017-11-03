@@ -21,6 +21,13 @@ with open("testfiles/result.csv", "r") as f:
     data = list(reader)
 
 coursesToExtract = ["CSE120", "CSE150", "CSE180", "ENGR191"]
+'''
+s = raw_input("Please enter courses to filter (0 to exit): ")
+
+while s != "0":
+    coursesToExtract.append(s)
+    s = raw_input()
+'''
 
 from Functions import filterCourses
 courses = filterCourses(coursesToExtract, data)
