@@ -2,12 +2,53 @@ import os.path
 
 # Download latest version of the page and check if it changed
 
-
 if not os.path.isfile("testfiles/result.csv"):
     if os.path.isfile("testfiles/long.html"):
         import Parser
+    else:
+        quit()
 else:
     if os.path.isfile("testfiles/long.html"):
         if os.path.getmtime("testfiles/long.html") > os.path.getmtime("testfiles/result.csv"):
             import Parser
+    else:
+        quit()
+
+import csv
+
+with open("testfiles/result.csv", "r") as f:
+    reader = csv.reader(f)
+    data = list(reader)
+
+def convert24h(s):
+    bounds = hourStr.split("-")
+    hs = bounds[0].split(":")
+    hf = bounds[1].split(":")
+    if hf[1].count("pm") > 0:
+        hf[0] = str(int(hf[0]) + 12)
+        hf[1] = hf[1][0:2]
+        if hs[0] > 9 and hs[0] != "12":
+            hf[1] = str(int(hf[1]) + 12)
+    else:
+        hf[1] = hf[1][0:2]
+
+    return hs[0] + ":" + hs[1] + "-" + hf[0] + ":" + hf[1]
+
+
+
+coursesToExtract = ["CSE120", "CSE150", "CSE140", "SPAN001"]
+
+courses = []
+
+for i in range(1, len(data)):
+    if len(data[i]) > 2:
+        s = data[i][1].split("-")
+        course = s[0] + s[1]
+        if course in coursesToExtract:
+            courses.append(data[i])
+
+print(courses[1])
+hourStr = courses[1][6]
+
+print(convert24h(hourStr))
 

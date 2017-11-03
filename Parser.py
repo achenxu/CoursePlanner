@@ -67,10 +67,13 @@ for info in parser.data:
         if column == 2:
             if len(info[0]) > 1:
                 continue
-        r.write(", " + info[0].replace(",", ""))
+        if column == 0:
+            info[0] = info[0].replace(" ", "")
+            print(info[0])
+        r.write("," + info[0].replace(",", ""))
         column += 1
         if info[0] == "TBD-TBD":
-            r.write(", ")
+            r.write(",")
             column += 1
 r.close()
 
