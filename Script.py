@@ -34,9 +34,7 @@ def convert24h(s):
 
     return hs[0] + ":" + hs[1] + "-" + hf[0] + ":" + hf[1]
 
-
-
-coursesToExtract = ["CSE120", "CSE150", "CSE140", "SPAN001"]
+coursesToExtract = ["CSE120", "CSE150", "CSE140", "PHYS009"]
 
 courses = []
 
@@ -46,7 +44,28 @@ for i in range(1, len(data)):
         course = s[0] + s[1]
         if course in coursesToExtract:
             courses.append(data[i])
+'''
+for c in courses:
+    print(c)
+'''
 
-print(courses[0])
-print(convert24h(courses[0][6]))
+lecture = courses[0][1].split("-")
+section = ""
+print(lecture)
+info = ["", []]
+
+for i in range(1, len(courses)):
+    current = courses[i][1].split("-")
+    
+    if len(current[2]) > 2:
+        if section == "" or section != current[2][0:2]:
+            print(section)
+            section = current[2][0:2]
+    else:
+        lecture = current
+        print(lecture)
+
+
+
+
 
