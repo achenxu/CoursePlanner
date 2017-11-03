@@ -1,11 +1,20 @@
 <!DOCTYPE html>
 <html>
     <body>
-        <form action="">
+        <script>
+            function doSomething() {
+                let str = document.getElementById('input').value;
+                alert('str');
+                return false;
+            }
+        </script>
+        
+        <form action="return doSomething();">
             Classes:<br>
-            <input type="text" name="classes" value="">
+            <input id="input" type="text" name="classes" value="">
             <br><br>
             <input type="submit" value="Submit">
+            <label id="">Classes... </label>
         </form>
     </body>
 </html>
