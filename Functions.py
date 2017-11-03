@@ -73,3 +73,58 @@ def generatePermutationsFromData(data, coursesToExtract):
             permutations[i].append(s[i/n % len(s)])
             n *= len(s)
     return permutations
+
+def fetchTimes(classID, data, classIDs):
+    i = classIDs.index(classID)
+    info = data[i]
+    results = []
+    results.append([info[5], convert24h(info[6]), info[8]])
+    if len(info) > 14:
+        results.append([info[14], convert24h(info[15]), info[17]])
+        if len(info) > 19:
+            results.append([info[19], convert24h(info[20]), info[22]])
+    return results
+
+def getTimeTables(permutations, classIDs, data):
+    timeTables = [[] for i in range(len(permutations))]
+    for i in range(len(permutations)):
+        for c in permutations[i]:
+            for id in c:
+                times = fetchTimes(id, data, classIDs)
+                for t in times:
+                    timeTables[i].append(t)
+    return timeTables
+
+def isOverlapping(time, times):
+    time = time.split("-")
+    for t in times:
+        t = t.split("-")
+        if (int(time[0]) > int(t[0]) and int(time[0]) < int(t[1])) or (int(time[1]) > int(t[0]) and int(time[1]) < int(t[1])):
+            return False
+    return True
+
+def isValidPerm(timeTable):
+    dict = {}
+    for t in timeTable:
+        if t[2] not in dict:
+            dates = t[2].split(" ")
+            if dates[0] == dates[1]:
+                dict.update({t[2]:{t[0]:[]}})
+            else:
+                dict.update({t[2]:{"M":[], "T":[], "W":[], "R":[], "F":[], "S":[]}})
+    
+        for c in t[0]:
+            timeStack = dict[t[2]][c]
+            if not isOverlapping(t[1], timeStack):
+                return False
+            dict[t[2]][c].append(t[1])
+    return True
+
+def extractValidSchedules(data, coursesToExtract, classIDs):
+    permutations = generatePermutationsFromData(data, coursesToExtract)
+    timeTables = getTimeTables(permutations, classIDs, data)
+    validPerms = []
+    for i in range(len(timeTables)):
+        if isValidPerm(timeTables[i]):
+            validPerms.append(permutations[i])
+    return validPerms
