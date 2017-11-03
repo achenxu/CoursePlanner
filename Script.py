@@ -29,18 +29,9 @@ while s != "0":
     s = raw_input()
 '''
 
-from Functions import filterCourses
-courses = filterCourses(coursesToExtract, data)
+from Functions import generatePermutationsFromData
+permutations = generatePermutationsFromData(data, coursesToExtract)
 
-from Functions import generateAllPossibleClasses
-sections = generateAllPossibleClasses(courses)
+for p in permutations:
+    print(p)
 
-
-schedule = [[] for i in range(len(coursesToExtract))]
-
-for s in sections:
-    name = s[0].split("-")
-    schedule[coursesToExtract.index(name[0] + name[1])].append(s)
-
-for s in schedule:
-    print(s)

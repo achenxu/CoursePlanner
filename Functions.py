@@ -54,3 +54,22 @@ def generateAllPossibleClasses(courses):
     lecture = ""
     return sections
 
+
+def generatePermutationsFromData(data, coursesToExtract):
+    courses = filterCourses(coursesToExtract, data)
+    sections = generateAllPossibleClasses(courses)
+    
+    schedule = [[] for i in range(len(coursesToExtract))]
+    for s in sections:
+        name = s[0].split("-")
+        schedule[coursesToExtract.index(name[0] + name[1])].append(s)
+    n=1
+    for s in schedule:
+        n *= len(s)
+    permutations = [[] for i in range(n)]
+    for i in range(len(permutations)):
+        n=1
+        for s in schedule:
+            permutations[i].append(s[i/n % len(s)])
+            n *= len(s)
+    return permutations
