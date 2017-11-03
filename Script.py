@@ -20,52 +20,20 @@ with open("testfiles/result.csv", "r") as f:
     reader = csv.reader(f)
     data = list(reader)
 
-def convert24h(s):
-    bounds = s.split("-")
-    hs = bounds[0].split(":")
-    hf = bounds[1].split(":")
-    if hf[1].count("pm") > 0:
-        hf[0] = str(int(hf[0]) + 12)
-        hf[1] = hf[1][0:2]
-        if hs[0] > 9 and hs[0] != "12":
-            hf[1] = str(int(hf[1]) + 12)
-    else:
-        hf[1] = hf[1][0:2]
+coursesToExtract = ["CSE120", "CSE150", "CSE180", "ENGR191"]
 
-    return hs[0] + ":" + hs[1] + "-" + hf[0] + ":" + hf[1]
+from Functions import filterCourses
+courses = filterCourses(coursesToExtract, data)
 
-coursesToExtract = ["CSE120", "CSE150", "CSE140", "PHYS009"]
-
-courses = []
-
-for i in range(1, len(data)):
-    if len(data[i]) > 2:
-        s = data[i][1].split("-")
-        course = s[0] + s[1]
-        if course in coursesToExtract:
-            courses.append(data[i])
-'''
-for c in courses:
-    print(c)
-'''
-
-lecture = courses[0][1].split("-")
-section = ""
-print(lecture)
-info = ["", []]
-
-for i in range(1, len(courses)):
-    current = courses[i][1].split("-")
-    
-    if len(current[2]) > 2:
-        if section == "" or section != current[2][0:2]:
-            print(section)
-            section = current[2][0:2]
-    else:
-        lecture = current
-        print(lecture)
+from Functions import generateAllPossibleClasses
+sections = generateAllPossibleClasses(courses)
 
 
+schedule = [[] for i in range(len(coursesToExtract))]
 
+for s in sections:
+    name = s[0].split("-")
+    schedule[coursesToExtract.index(name[0] + name[1])].append(s)
 
-
+for s in schedule:
+    print(s)
