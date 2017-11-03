@@ -21,7 +21,7 @@ with open("testfiles/result.csv", "r") as f:
     data = list(reader)
 
 def convert24h(s):
-    bounds = hourStr.split("-")
+    bounds = s.split("-")
     hs = bounds[0].split(":")
     hf = bounds[1].split(":")
     if hf[1].count("pm") > 0:
@@ -47,8 +47,6 @@ for i in range(1, len(data)):
         if course in coursesToExtract:
             courses.append(data[i])
 
-print(courses[1])
-hourStr = courses[1][6]
-
-print(convert24h(hourStr))
+print(courses[0])
+print(convert24h(courses[0][6]))
 
