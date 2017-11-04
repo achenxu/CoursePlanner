@@ -53,6 +53,7 @@ r = open("testfiles/result.csv", "w")
 
 r.write("CRN/Class, Course ID, Course Name, Units, Type, Days, Hours, Room, Dates, Instructor, Capacity, Enrolled, Available, Type2, Days2, Hours2, Room2, Dates2, Type3, Days3, Hours3, Room3, Dates3\n")
 
+
 column = 0
 for info in parser.data:
     
@@ -67,10 +68,12 @@ for info in parser.data:
         if column == 2:
             if len(info[0]) > 1:
                 continue
-        r.write(", " + info[0].replace(",", ""))
+        if column == 0:
+            info[0] = info[0].replace(" ", "")
+        r.write("," + info[0].replace(",", ""))
         column += 1
         if info[0] == "TBD-TBD":
-            r.write(", ")
+            r.write(",")
             column += 1
 r.close()
 

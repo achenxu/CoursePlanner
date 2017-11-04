@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <script>
+            function doSomething() {
+                let str = document.getElementById('input').value;
+                alert(str);
+                return false;
+            }
+        </script>
+        
+        <form action="doSomething()">
+            Classes:<br>
+            <input id="input" type="text" name="classes" value="">
+            <br><br>
+            <input type="submit" value="Submit">
+            <label id="">Classes... </label>
+        </form>
+    </body>
+</html>
+
