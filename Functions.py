@@ -127,4 +127,17 @@ def extractValidSchedules(data, coursesToExtract, classIDs):
     for i in range(len(timeTables)):
         if isValidPerm(timeTables[i]):
             validPerms.append(permutations[i])
-    return validPerms
+
+    validSchedules = []
+    number = 1
+
+    for s in validPerms:
+        dict = {"name": ("Schedule #" + str(number)), "courses": []}
+        for courses in s:
+            for classid in courses:
+                i = classIDs.index(classid)
+                course = {"id": classid, "crn": data[i][0], "times": fetchTimes(classid, data, classIDs)}
+                dict["courses"].append(course)
+        validSchedules.append(dict)
+        number += 1
+    return validSchedules

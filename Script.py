@@ -39,11 +39,16 @@ for d in data:
 from Functions import extractValidSchedules, fetchTimes
 validSchedules = extractValidSchedules(data, coursesToExtract, classIDs)
 
+
+print("########################################")
 for s in validSchedules:
-    for courses in s:
-        for classid in courses:
-            print(data[classIDs.index(classid)][0], fetchTimes(classid, data, classIDs))
-    print s
+    print(s["name"])
+    for c in s["courses"]:
+        print(c["crn"] + " - " + c["id"])
+        print(c["times"])
+    print("########################################")
+
+
 end = time.time()
 print("Valid schedules: " + str(len(validSchedules)))
 print("in " + str(end - start) + " seconds")
