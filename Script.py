@@ -11,8 +11,6 @@ else:
     if os.path.isfile("testfiles/long.html"):
         if os.path.getmtime("testfiles/long.html") > os.path.getmtime("testfiles/result.csv"):
             import Parser
-    else:
-        quit()
 
 import csv
 
@@ -47,6 +45,8 @@ for s in validSchedules:
         print(c["crn"] + " - " + c["id"])
         print(c["times"])
     print("########################################")
+    #draw schedule
+    #print("########################################")
 
 
 end = time.time()
