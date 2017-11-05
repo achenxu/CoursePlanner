@@ -11,8 +11,6 @@ else:
     if os.path.isfile("testfiles/long.html"):
         if os.path.getmtime("testfiles/long.html") > os.path.getmtime("testfiles/result.csv"):
             import Parser
-    else:
-        quit()
 
 import csv
 
