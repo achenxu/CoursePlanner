@@ -10,7 +10,6 @@ expected_convert24h = '1:30-2:45pm'
 def test_convert24h():
     assert convert24h(time_string) == expected_convert24h
     
-
 def test_filterCourses():
     assert True
 

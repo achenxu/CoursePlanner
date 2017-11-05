@@ -37,15 +37,14 @@ for d in data:
 from Functions import extractValidSchedules, fetchTimes
 validSchedules = extractValidSchedules(data, coursesToExtract, classIDs)
 
-
 print("########################################")
 for s in validSchedules:
     print(s["name"])
+    days = {"M": [], "T": [], "W": [], "R": [], "F": []}
     for c in s["courses"]:
         print(c["crn"] + " - " + c["id"])
         print(c["times"])
     print("########################################")
-
 
 end = time.time()
 print("Valid schedules: " + str(len(validSchedules)))

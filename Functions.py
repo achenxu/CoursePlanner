@@ -99,7 +99,7 @@ def isOverlapping(time, times):
     time = time.split("-")
     for t in times:
         t = t.split("-")
-        if (int(time[0]) > int(t[0]) and int(time[0]) < int(t[1])) or (int(time[1]) > int(t[0]) and int(time[1]) < int(t[1])):
+        if (int(time[0]) >= int(t[0]) and int(time[0]) < int(t[1])) or (int(time[1]) > int(t[0]) and int(time[1]) <= int(t[1])):
             return False
     return True
 
