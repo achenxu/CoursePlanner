@@ -99,7 +99,7 @@ def isOverlapping(time, times):
     time = time.split("-")
     for t in times:
         t = t.split("-")
-        if (int(time[0]) > int(t[0]) and int(time[0]) < int(t[1])) or (int(time[1]) > int(t[0]) and int(time[1]) < int(t[1])):
+        if (int(time[0]) >= int(t[0]) and int(time[0]) < int(t[1])) or (int(time[1]) > int(t[0]) and int(time[1]) <= int(t[1])):
             return False
     return True
 
@@ -127,4 +127,17 @@ def extractValidSchedules(data, coursesToExtract, classIDs):
     for i in range(len(timeTables)):
         if isValidPerm(timeTables[i]):
             validPerms.append(permutations[i])
-    return validPerms
+
+    validSchedules = []
+    number = 1
+
+    for s in validPerms:
+        dict = {"name": ("Schedule #" + str(number)), "courses": []}
+        for courses in s:
+            for classid in courses:
+                i = classIDs.index(classid)
+                course = {"id": classid, "crn": data[i][0], "times": fetchTimes(classid, data, classIDs)}
+                dict["courses"].append(course)
+        validSchedules.append(dict)
+        number += 1
+    return validSchedules
