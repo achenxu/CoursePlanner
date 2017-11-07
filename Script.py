@@ -22,7 +22,8 @@ with open("testfiles/result.csv", "r") as f:
 
 coursesToExtract = []
 s = raw_input("Please enter courses to filter (0 to exit): ")
-
+if s == "0":
+    quit()
 while s != "0":
     coursesToExtract.append(s.upper())
     s = raw_input()
