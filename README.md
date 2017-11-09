@@ -80,10 +80,26 @@ in 0.0120759010315 seconds
 
 ## Built With
 
-* Python 2.7.13
+* Python 2.7.13 (so far)
 
 ## Contributing
 
 Feel free to submit a pull request, however, make sure to pull the information often when we update the code base.
-Please be descriptive in your pull requests as well.  Feel free to reach out to us if you have any questions on anything.
+Please be descriptive in your pull requests as well.  
+
+Make sure your branch names are short and descriptive.
+Examples:
+```
+# good
+$ git checkout -b oauth-migration
+
+# bad - too vague
+$ git checkout -b login_fix
+
+# You can also use issue number as branch name
+# GitHub issue #15 
+$ git checkout -b issue-15
+```
+
+Feel free to reach out to us if you have any questions on anything or open up an issue.
 
