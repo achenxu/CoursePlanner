@@ -47,23 +47,6 @@ for s in validSchedules:
         print(c["times"])
     print("########################################")
 
-f = open('output.txt','w')
-for c in coursesToExtract:
-    f.write(c + " ")
-f.write("\n########################################\n")
-for s in validSchedules:
-    f.write(s["name"] + "\n")
-    days = {"M": [], "T": [], "W": [], "R": [], "F": []}
-    for c in s["courses"]:
-        f.write(c["crn"] + " - " + c["id"] + "\n")
-        for t in c["times"]:
-            f.write("(" + t[0] + " - " + t[1] + " - " + t[2] + ")" + " --- ")
-        f.write("\n")
-    f.write("########################################\n")
-f.write("Valid schedules: " + str(len(validSchedules)) + "\n")
-f.close()
-
-
 end = time.time()
 print("Valid schedules: " + str(len(validSchedules)))
 print("in " + str(end - start) + " seconds")
