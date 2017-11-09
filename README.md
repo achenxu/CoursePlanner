@@ -26,14 +26,15 @@ This prompt will show up:
 ```
 Please enter courses to filter (0 to exit):
 ```
-Here is an example input:
+Here is an example input with the prompt:
 ```
-cse140
+Please enter courses to filter (0 to exit): cse140
 cse150
 cse165
 cse120
 0
 ```
+NOTE: Make sure that cse140 stays on the same line as the prompt, otherwise, the script may not work properly.
 
 Example output:
 ```
