@@ -21,7 +21,7 @@ with open("testfiles/result.csv", "r") as f:
 #coursesToExtract = ["CSE120", "CSE140", "CSE150"]#["CSE120", "CSE150", "CSE140", "ENGR191", "WRI100"]
 
 coursesToExtract = []
-s = raw_input("Please enter courses to filter (0 to exit): ")
+s = raw_input("Please enter courses to filter (0 to continue): ")
 if s == "0":
     quit()
 while s != "0":
