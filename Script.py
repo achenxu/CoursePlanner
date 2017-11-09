@@ -38,16 +38,29 @@ for d in data:
 from Functions import extractValidSchedules, fetchTimes
 validSchedules = extractValidSchedules(data, coursesToExtract, classIDs)
 
+text_file = open("output.txt", "w")
 print("########################################")
+text_file.write("########################################")
 for s in validSchedules:
     print(s["name"])
+    text_file.write("{}\n".format(s["name"]))
     days = {"M": [], "T": [], "W": [], "R": [], "F": []}
     for c in s["courses"]:
+        text_file.write("{} - {}\n".format(c["crn"], c["id"]))
+        text_file.write("{}\n".format(c["times"]))
         print(c["crn"] + " - " + c["id"])
         print(c["times"])
     print("########################################")
+    text_file.write("########################################")
 
+text_file.close()
 end = time.time()
 print("Valid schedules: " + str(len(validSchedules)))
 print("in " + str(end - start) + " seconds")
+print("Output has been printed to output.txt")
+
+
+
+
+
 
