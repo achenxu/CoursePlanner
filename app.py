@@ -16,7 +16,7 @@ def loadSchedules():
     
     from Scheduler import findSchedules
     schedules = findSchedules(coursesToExtract)
-    return schedules
- 
+    return str(schedules)
+
 if __name__ == "__main__":
 	app.run()
