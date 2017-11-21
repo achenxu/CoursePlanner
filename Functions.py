@@ -1,8 +1,10 @@
-def convert24h(s):
-    bounds = s.split("-")
-    hs = bounds[0].split(":")
-    hf = bounds[1].split(":")
-    if hf[1].count("pm") > 0:
+
+def convert24h(s):              # Time is provided as: '12:01pm-1:20pm'
+    bounds = s.split("-")       # Split into ['12:01pm', '1:20pm']
+    hs = bounds[0].split(":")   # Start time is ['12', '01pm']
+    hf = bounds[1].split(":")   # Start time is ['1', '20pm']
+    
+    if hf[1].count("pm") > 0:   # Adds 12h for the afternoon to convert from am/pm to 24h
         hf[0] = str(int(hf[0]) + 12)
         hf[1] = hf[1][0:2]
         if int(hs[0]) < 10 and hs[0] != "12":
@@ -10,20 +12,22 @@ def convert24h(s):
     else:
         hf[1] = hf[1][0:2]
     
-    return hs[0] + hs[1] + "-" + hf[0] + hf[1]
+            return hs[0] + hs[1] + "-" + hf[0] + hf[1]  # return '1201-1320'
 
-def filterCourses(coursesToExtract, data):
+def filterCourses(coursesToExtract, data):  # Takes in the list of class IDs wanted and the data from registrar
     courses = []
-    for i in range(1, len(data)):
+    for i in range(1, len(data)):           # Only return relevant courses
         if len(data[i]) > 2:
             s = data[i][1].split("-")
             course = s[0] + s[1]
             if course in coursesToExtract:
                 courses.append(data[i])
-    return courses
+return courses                          # return all information relevant to coursesToExtract
 
-def generateAllPossibleClasses(courses):
-    lecture = courses[0][1]
+def generateAllPossibleClasses(courses):    # Generates all possible sctions for a given class
+    if len(courses) < 1:                    # VERY UNSTABLE - Relying on the structure of the parsed webpage
+        return
+    lecture = courses[0][1]                 # First of list has to be a lecture based on how data is structured
     section = ""
     sections = []
     currentSection = []
@@ -50,13 +54,11 @@ def generateAllPossibleClasses(courses):
     sections.append([lecture])
     for s in currentSection:
         sections[len(sections)-1].append(s)
-    section = ""
-    lecture = ""
     return sections
 
 
-def generatePermutationsFromData(data, coursesToExtract):
-    courses = filterCourses(coursesToExtract, data)
+def generatePermutationsFromData(data, coursesToExtract):   # Uses previous functions to generate all possible permutations
+    courses = filterCourses(coursesToExtract, data)         # for a given list of class ids
     sections = generateAllPossibleClasses(courses)
     
     schedule = [[] for i in range(len(coursesToExtract))]
@@ -74,7 +76,7 @@ def generatePermutationsFromData(data, coursesToExtract):
             n *= len(s)
     return permutations
 
-def fetchTimes(classID, data, classIDs):
+def fetchTimes(classID, data, classIDs):    # fetches the times for a given class
     i = classIDs.index(classID)
     info = data[i]
     results = []
@@ -85,7 +87,7 @@ def fetchTimes(classID, data, classIDs):
             results.append([info[19], convert24h(info[20]), info[22]])
     return results
 
-def getTimeTables(permutations, classIDs, data):
+def getTimeTables(permutations, classIDs, data):    # generates list of times for given schedules
     timeTables = [[] for i in range(len(permutations))]
     for i in range(len(permutations)):
         for c in permutations[i]:
@@ -95,7 +97,7 @@ def getTimeTables(permutations, classIDs, data):
                     timeTables[i].append(t)
     return timeTables
 
-def isOverlapping(time, times):
+def isOverlapping(time, times):     # returns false if there is overlapping in schedule
     time = time.split("-")
     for t in times:
         t = t.split("-")
@@ -103,7 +105,7 @@ def isOverlapping(time, times):
             return False
     return True
 
-def isValidPerm(timeTable):
+def isValidPerm(timeTable):         # checks if a giver schedule is valid (i.e. no overlap)
     dict = {}
     for t in timeTable:
         if t[2] not in dict:
@@ -120,7 +122,7 @@ def isValidPerm(timeTable):
             dict[t[2]][c].append(t[1])
     return True
 
-def extractValidSchedules(data, coursesToExtract, classIDs):
+def extractValidSchedules(data, coursesToExtract, classIDs):    # fetches data about the valid schedules
     permutations = generatePermutationsFromData(data, coursesToExtract)
     timeTables = getTimeTables(permutations, classIDs, data)
     validPerms = []
