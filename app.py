@@ -8,9 +8,10 @@ def home():
 @app.route("/courses")
 def loadSchedules():
     
-    coursesToExtract = request.args["courses"].split(",")
-    for c in coursesToExtract:
-        c = c.upper()
+    courses = request.args["courses"].split(",")
+    coursesToExtract = []
+    for c in courses:
+        coursesToExtract.append(c.upper())
     
     print(coursesToExtract)
     
