@@ -12,7 +12,7 @@ def convert24h(s):              # Time is provided as: '12:01pm-1:20pm'
     else:
         hf[1] = hf[1][0:2]
     
-            return hs[0] + hs[1] + "-" + hf[0] + hf[1]  # return '1201-1320'
+    return hs[0] + hs[1] + "-" + hf[0] + hf[1]  # return '1201-1320'
 
 def filterCourses(coursesToExtract, data):  # Takes in the list of class IDs wanted and the data from registrar
     courses = []
