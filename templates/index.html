@@ -4,23 +4,23 @@
         <form method='POST' action="">
             Classes:<br>
             <input id="input" type="text" name="classes" value="">
-                <br><br>
-                <input type="submit" value="Submit">
-                    <label id="">Classes... </label>
-                    <br>
-                    {% for schedule in result %}
-                    <br>
-                    <label> {{ schedule["name"] }} </label>
-                    <br>
-                    <table>
-                        {% for c in schedule["courses"] %}
-                        <tr>
-                            <th> {{ c["crn"] }} </th>
-                            <td> {{ c["id"] }} </td>
-                        </tr>
-                        {% endfor %}
-                    </table>
-                    {% endfor %}
-                    </form>
+            <br><br>
+            <input type="submit" value="Submit">
+            <label id="">Classes... </label>
+            <br>
+            {% for schedule in result %}
+            <br>
+            <label> {{ schedule["name"] }} </label>
+            <br>
+            <table>
+            {% for c in schedule["courses"] %}
+                <tr>
+                    <th> {{ c["crn"] }} </th>
+                    <td> {{ c["id"] }} </td>
+                </tr>
+            {% endfor %}
+            </table>
+            {% endfor %}
+        </form>
     </body>
 </html>
