@@ -17,13 +17,13 @@ def findSchedules(coursesToExtract):
 	return extractValidSchedules(data, coursesToExtract, classIDs)
 
 # Download latest version of the page and check if it changed
-def updateDB:
+def updateDB():
     if not os.path.isfile("testfiles/result.csv"):
         if os.path.isfile("testfiles/long.html"):
-        import Parser
+            import Parser
         else:
-        return
+            return
     else:
         if os.path.isfile("testfiles/long.html"):
-        if os.path.getmtime("testfiles/long.html") > os.path.getmtime("testfiles/result.csv"):
-            import Parser
+            if os.path.getmtime("testfiles/long.html") > os.path.getmtime("testfiles/result.csv"):
+                import Parser

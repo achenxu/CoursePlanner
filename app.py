@@ -12,6 +12,8 @@ def loadSchedules():
     for c in coursesToExtract:
         c = c.upper()
     
+    print(coursesToExtract)
+    
     from Scheduler import findSchedules
     schedules = findSchedules(coursesToExtract)
     return jsonify(schedules)
