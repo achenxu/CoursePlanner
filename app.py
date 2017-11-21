@@ -1,9 +1,12 @@
 from flask import Flask, render_template, request, jsonify
 app = Flask(__name__)
  
-@app.route("/")
+@app.route("/", methods=['POST'])
 def home():
-	return render_template('index.html')
+    from Scheduler import findSchedules
+    print(request.form["classes"])
+    coursesToExtract = [request.form["classes"]]
+    return render_template('index.html', result=findSchedules(coursesToExtract))
 
 @app.route("/courses")
 def loadSchedules():
