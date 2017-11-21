@@ -22,7 +22,7 @@ def filterCourses(coursesToExtract, data):  # Takes in the list of class IDs wan
             course = s[0] + s[1]
             if course in coursesToExtract:
                 courses.append(data[i])
-return courses                          # return all information relevant to coursesToExtract
+    return courses                          # return all information relevant to coursesToExtract
 
 def generateAllPossibleClasses(courses):    # Generates all possible sctions for a given class
     if len(courses) < 1:                    # VERY UNSTABLE - Relying on the structure of the parsed webpage
