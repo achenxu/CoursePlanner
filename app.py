@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 app = Flask(__name__)
  
 @app.route("/")
@@ -8,12 +8,12 @@ def home():
 if __name__ == "__main__":
 	app.run()
 
-@app.route("/", methods=['GET', 'POST'])
+@app.route("/courses")
 def loadSchedules():
-	print 'hello'
-	if request.method == 'POST':
-		from Scheduler import findSchedules
-		return render_template('index.html')
-		
-	else:
-		return render_template('index.html')
+    
+    coursesToExtract = request.args["courses"].split(",")
+    for c in coursesToExtract:
+        c = c.upper()
+    
+    from Scheduler import findSchedules
+    schedules = findSchedules(coursesToExtract)
