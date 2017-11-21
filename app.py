@@ -11,6 +11,8 @@ if __name__ == "__main__":
 @app.route("/courses")
 def loadSchedules():
     
+    print(request.form.input)
+    
     coursesToExtract = request.args["courses"].split(",")
     for c in coursesToExtract:
         c = c.upper()
