@@ -3,10 +3,16 @@
     <body>
         <form method='POST' action="">
             Classes:<br>
-            <input id="input" type="text" name="classes" value="">
+            
+            <datalist id="classes">
+                {% for c in autocomplete %}
+                    <option value={{ c }}>
+                {% endfor %}
+            </datalist>
+            
+            <input id="input" type="text" name="classes" value="" list="classes">
             <br><br>
-            <input type="submit" value="Submit">
-            <label id="">Classes... </label>
+            <input type="submit" value="Add">
             <br>
             {% for schedule in result %}
             <br>

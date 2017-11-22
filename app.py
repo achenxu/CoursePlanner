@@ -1,16 +1,19 @@
 from flask import Flask, render_template, request, jsonify
+from Scheduler import findSchedules, getClassIDs
+
 app = Flask(__name__)
 
 @app.route("/")
 def home():
-    return render_template('index.html', result={})
+    ids = getClassIDs()
+    return render_template('index.html', autocomplete=ids)
 
 @app.route("/", methods=['POST'])
 def loadCourses():
-    from Scheduler import findSchedules
     print(request.form["classes"])
     coursesToExtract = request.form["classes"].upper().split(",")
-    return render_template('index.html', result=findSchedules(coursesToExtract))
+    ids = getClassIDs()
+    return render_template('index.html', result=findSchedules(coursesToExtract), autocomplete=ids)
 
 @app.route("/courses")
 def loadSchedules():
