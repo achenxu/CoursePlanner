@@ -30,8 +30,8 @@ def updateDB():
 
 def getClassIDs():
     with open("testfiles/result.csv", "r") as f:
-    reader = csv.reader(f)
-    data = list(reader)
+        reader = csv.reader(f)
+        data = list(reader)
     
     classIDs = []
     for d in data:
