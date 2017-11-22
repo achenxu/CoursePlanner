@@ -14,7 +14,7 @@ def findSchedules(coursesToExtract):
         else:
             classIDs.append("")
 
-return extractValidSchedules(data, coursesToExtract, classIDs)
+    return extractValidSchedules(data, coursesToExtract, classIDs)
 
 # Download latest version of the page and check if it changed
 def updateDB():
