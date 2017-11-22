@@ -8,9 +8,9 @@ def findSchedules(coursesToExtract):
         data = list(reader)
 
     classIDs = []
-        for d in data:
-            if len(d) > 1:
-                classIDs.append(d[1])
+    for d in data:
+        if len(d) > 1:
+            classIDs.append(d[1])
         else:
             classIDs.append("")
 
