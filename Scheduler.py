@@ -36,8 +36,8 @@ def getClassIDs():
     classIDs = []
     for d in data:
         if len(d) > 1:
-        IDs = d[1].split("-")
-        if len(IDs) >= 2:
-        if (IDs[0] + IDs[1]) not in classIDs:
-            classIDs.append(IDs[0] + IDs[1])
+            IDs = d[1].split("-")
+            if len(IDs) >= 2:
+                if (IDs[0] + IDs[1]) not in classIDs:
+                    classIDs.append(IDs[0] + IDs[1])
     return classIDs
