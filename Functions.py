@@ -138,7 +138,7 @@ def extractValidSchedules(data, coursesToExtract, classIDs):    # fetches data a
         for courses in s:
             for classid in courses:
                 i = classIDs.index(classid)
-                course = {"id": classid, "crn": data[i][0], "times": fetchTimes(classid, data, classIDs)}
+                course = {"id": classid, "crn": data[i][0], "name": data[i][2], "times": fetchTimes(classid, data, classIDs), "instructor": data[i][9], "seats": data[i][10], "enrolled": data[i][11]}
                 dict["courses"].append(course)
         validSchedules.append(dict)
         number += 1

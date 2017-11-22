@@ -27,6 +27,9 @@
                 <tr>
                     <th> {{ c["crn"] }} </th>
                     <td> {{ c["id"] }} </td>
+                    <td> {{ c["name"] }} </td>
+                    <td> {{ c["instructor"] }} </td>
+                    <td> {{ c["enrolled"] }} / {{ c["seats"] }} </td>
                 </tr>
             {% endfor %}
             </table>
