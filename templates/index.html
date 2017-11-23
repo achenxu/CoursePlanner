@@ -8,15 +8,40 @@
             <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
             <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
             <script>
+                var availableTags = {{ autocomplete|tojson }};
                 $( function() {
-                    var availableTags = {{ autocomplete|tojson }};
-                    $( "input" ).autocomplete({ source: availableTags });
+                  $( "input" ).autocomplete({ source: availableTags });
                 });
             </script>
-            <input id="input" type="text" name="classes" value="">
+            <input id="courseField" type="text" name="course" value="">
+            <input type="hidden" id="classes" name="classes" value="">
             
+            
+            
+            <script>
+                var courses = [];
+                
+                function insert() {
+                    var field = document.getElementById("courseField");
+                    courses.push(field.value);
+                    field.value = "";
+                    document.getElementById("current").innerHTML = courses.join(",");
+                }
+            </script>
+            <input id="add" type="button" value="Add" onclick="insert()">
+            
+            
+            
+            <script>
+                function submission() {
+                    var classfield = document.getElementById("classes");
+                    classfield.value = courses.join(",");
+                    document.getElementById("form").submit();
+                }
+            </script>
             <br><br>
-            <input type="submit" value="Add">
+            <p id="current"></p>
+            <input type="button" onclick="submission()" value="Generate">
             <br>
             {% for schedule in result %}
             <br>
