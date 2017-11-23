@@ -35,8 +35,12 @@
             <script>
                 function submission() {
                     var classfield = document.getElementById("classes");
-                    classfield.value = courses.join(",");
-                    document.getElementById("form").submit();
+                    if (courses == []) {
+                        alert("Please enter courses!");
+                    } else {
+                        classfield.value = courses.join(",");
+                        document.getElementById("form").submit();
+                    }
                 }
             </script>
             <br><br>
