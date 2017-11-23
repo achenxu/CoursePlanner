@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <body>
-        <form method='POST' action="">
+        <form id="form" method='POST' action="">
             Classes:<br>
             
             <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -23,9 +23,11 @@
                 
                 function insert() {
                     var field = document.getElementById("courseField");
-                    courses.push(field.value);
-                    field.value = "";
-                    document.getElementById("current").innerHTML = courses.join(",");
+                    if (availableTags.indexOf(field.value) > -1) {
+                        courses.push(field.value);
+                        field.value = "";
+                        document.getElementById("current").innerHTML = courses.join(",");
+                    }
                 }
             </script>
             <input id="add" type="button" value="Add" onclick="insert()">
@@ -35,7 +37,7 @@
             <script>
                 function submission() {
                     var classfield = document.getElementById("classes");
-                    if (courses == []) {
+                    if (courses.length == 0) {
                         alert("Please enter courses!");
                     } else {
                         classfield.value = courses.join(",");
