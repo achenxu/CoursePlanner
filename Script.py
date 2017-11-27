@@ -4,7 +4,7 @@ import time
 
 if not os.path.isfile("testfiles/result.csv"):
     import Parser
-elif os.path.getmtime("testfiles/long.html")-time.time() > 3600:
+elif os.path.getmtime("testfiles/result.csv")-time.time() > 3600:
     import Parser
 
 import csv
