@@ -3,14 +3,9 @@ import time
 # Download latest version of the page and check if it changed
 
 if not os.path.isfile("testfiles/result.csv"):
-    if os.path.isfile("testfiles/long.html"):
-        import Parser
-    else:
-        quit()
-else:
-    if os.path.isfile("testfiles/long.html"):
-        if os.path.getmtime("testfiles/long.html") > os.path.getmtime("testfiles/result.csv"):
-            import Parser
+    import Parser
+elif os.path.getmtime("testfiles/long.html")-time.time() > 3600:
+    import Parser
 
 import csv
 
