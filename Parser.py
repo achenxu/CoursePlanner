@@ -46,7 +46,8 @@ class MyHTMLParser(HTMLParser):
                     self.passes -= 1
 
 parser = MyHTMLParser()
-s = open("testfiles/long.html", "r").read()    # Extract from html file
+from urllib import urlopen
+s = urlopen("https://mystudentrecord.ucmerced.edu/pls/PROD/xhwschedule.P_ViewSchedule?validterm=201810&openclasses=N").read()    # Extract from html file
 parser.feed(s)                                  # Parse it into data elements (subject, crn, or info)
 
 r = open("testfiles/result.csv", "w")
