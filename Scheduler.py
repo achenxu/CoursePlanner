@@ -3,6 +3,7 @@ from Functions import extractValidSchedules, fetchTimes
 
 # Find schedules
 def findSchedules(coursesToExtract):
+    updateDB()
     with open("testfiles/result.csv", "r") as f:
         reader = csv.reader(f)
         data = list(reader)
@@ -19,14 +20,9 @@ def findSchedules(coursesToExtract):
 # Download latest version of the page and check if it changed
 def updateDB():
     if not os.path.isfile("testfiles/result.csv"):
-        if os.path.isfile("testfiles/long.html"):
-            import Parser
-        else:
-            return
-    else:
-        if os.path.isfile("testfiles/long.html"):
-            if os.path.getmtime("testfiles/long.html") > os.path.getmtime("testfiles/result.csv"):
-                import Parser
+        import Parser
+    elif os.path.getmtime("testfiles/result.csv")-time.time() > 3600:
+        import Parser
 
 def getClassIDs():
     with open("testfiles/result.csv", "r") as f:
